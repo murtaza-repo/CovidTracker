@@ -1,0 +1,105 @@
+<div class="jumbotron bg-white text-center">
+    <h1 class="display-4">Global COVID-19 Cases</h1>
+    <br><br>
+    <hr>
+    <div class="d-flex justify-content-center" *ngIf="isLoading">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+
+    <div class="row" *ngIf="globalData && !isLoading">
+        <div class="col-md-4 mx-auto">
+            <div class="card p-3 m-3">
+                <div class="ui statistic">
+                    <div class="label">
+                      New Confirmed
+                    </div>
+                    <div class="value">
+                      {{ globalData.NewConfirmed | number }}
+                    </div>
+                  </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card p-3 m-3">
+                <div class="ui statistic">
+                    <div class="label">
+                        New Deaths
+                    </div>
+                    <div class="value">
+                        {{ globalData.NewDeaths | number }}
+                    </div>
+                  </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card p-3 m-3">
+                <div class="ui statistic">
+                    <div class="label">
+                        New Recovered
+                    </div>
+                    <div class="value">
+                        {{ globalData.NewRecovered | number }}
+                    </div>
+                  </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mx-auto">
+            <div class="card p-3 m-3">
+                <div class="ui statistic">
+                    <div class="label">
+                        Total Confirmed
+                    </div>
+                    <div class="value">
+                        {{ globalData.TotalConfirmed | number }}
+                    </div>
+                  </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card p-3 m-3">
+                <div class="ui statistic">
+                    <div class="label">
+                        Total Deaths
+                    </div>
+                    <div class="value">
+                        {{ globalData.TotalDeaths | number }}
+                    </div>
+                  </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card p-3 m-3">
+                <div class="ui statistic">
+                    <div class="label">
+                        Total Recovered
+                    </div>
+                    <div class="value">
+                        {{ globalData.TotalRecovered | number }}
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center" *ngIf="globalData && !isLoading">
+        <div class="col-md-6">
+            <google-chart [data]="pieChartNew"></google-chart>
+        </div>
+        <div class="col-md-6">
+            <google-chart [data]="pieChartTotal"></google-chart>
+        </div>
+    </div>
+
+    <div class="row justify-content-center" *ngIf="globalData && !isLoading">
+        <div class="col-md-6">
+            <google-chart [data]="barChartNew"></google-chart>
+        </div>
+        <div class="col-md-6">
+            <google-chart [data]="barChartTotal"></google-chart>
+        </div>
+    </div>
+    <hr class="my-4">
+</div>

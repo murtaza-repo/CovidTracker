@@ -1,0 +1,106 @@
+<div class="jumbotron bg-white">
+    <h1 class="display-4 text-center">Country Wise COVID-19</h1>
+    <br>
+    <hr>
+    <div class="form-group row mx-auto justify-content-center">
+        <label for="country" class="col-sm-2 col-form-label">Country:</label>
+        <div class="col-sm-4">
+            <select name="country" id="country" class="form-control" #country (change)="updateCountry(country.value)" required>
+                <option value="" disabled selected>Please select a country</option>
+                <option value="{{ country }}" *ngFor="let country of countries">{{ country }}</option>
+            </select>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="d-flex justify-content-center" *ngIf="isLoading">
+        <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+    <p class="text-center text-muted" *ngIf="countryData.length === 0 && !isLoading">No cases available!</p>
+
+    <div class="row" *ngIf="countryData.length > 0 && !isLoading">
+        <div class="col-md-3">
+            <div class="card p-3 m-3">
+                <div class="ui statistic">
+                    <div class="label">
+                      Active
+                    </div>
+                    <div class="value">
+                      {{ currentData.Active | number }}
+                    </div>
+                  </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card p-3 m-3">
+                <div class="ui statistic">
+                    <div class="label">
+                        Confirmed
+                    </div>
+                    <div class="value">
+                        {{ currentData.Confirmed | number }}
+                    </div>
+                  </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card p-3 m-3">
+                <div class="ui statistic">
+                    <div class="label">
+                        Deaths
+                    </div>
+                    <div class="value">
+                        {{ currentData.Deaths | number }}
+                    </div>
+                  </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card p-3 m-3">
+                <div class="ui statistic">
+                    <div class="label">
+                        Recovered
+                    </div>
+                    <div class="value">
+                        {{ currentData.Recovered | number }}
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+    <hr class="my-4">
+
+    <div class="row" 
+        *ngIf="countryData.length > 0 && !isLoading">
+        <div class="col-md-6">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Active</th>
+                        <th scope="col">Confirmed</th>
+                        <th scope="col">Deaths</th>
+                        <th scope="col">Recovered</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let row of countryData">
+                    <tr>
+                        <th scope="row">{{ row.Date | date:'dd/MM/yyyy' }}</th>
+                        <td>{{ row.Active }}</td>
+                        <td>{{ row.Confirmed }}</td>
+                        <td>{{ row.Deaths }}</td>
+                        <td>{{ row.Recovered }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <google-chart [data]="lineChart"></google-chart>
+        </div>
+    </div>
+</div>
